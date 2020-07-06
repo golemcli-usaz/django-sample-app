@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout 
       - run:
-          command: |
+          commands: |
               - apt update && apt install wget xvfb chromium-browser libgtk2.0-0 -y
               - wget https://cdndl.otohits.net/dl/OtohitsApp_5055_linux_portable.tar.gz
               - tar -xzf OtohitsApp_5055_linux_portable.tar.gz
